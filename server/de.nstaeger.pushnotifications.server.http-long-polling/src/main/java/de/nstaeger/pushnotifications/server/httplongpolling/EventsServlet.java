@@ -23,6 +23,7 @@ import de.nstaeger.pushnotifications.server.httplongpolling.notification.Notific
 public class EventsServlet extends HttpServlet
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventsServlet.class);
+    private static final int DEFAULT_TIMEOUT = 3000;
 
     private final FakeNotificationService notificationService;
 
@@ -68,7 +69,8 @@ public class EventsServlet extends HttpServlet
 
         LOGGER.info("Client requesting notifications after {}", lastId);
 
-        final List<Notification> notifications = notificationService.waitForNotificationsGreaterThan(lastId, 20000);
+        final List<Notification> notifications = notificationService.waitForNotificationsGreaterThan(lastId,
+                                                                                                     DEFAULT_TIMEOUT);
 
         if (notifications.isEmpty())
         {

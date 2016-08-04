@@ -33,7 +33,7 @@ public class FakeNotificationService
             {
                 try
                 {
-                    final int timeToWait = random.nextInt(8000) + 2000;
+                    final int timeToWait = random.nextInt(5000) + 1000;
                     LOGGER.info("Next notification will be send in {}ms", timeToWait);
 
                     Thread.sleep(timeToWait);
