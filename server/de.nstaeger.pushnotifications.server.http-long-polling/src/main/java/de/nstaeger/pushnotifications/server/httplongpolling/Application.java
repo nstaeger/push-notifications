@@ -5,7 +5,7 @@ import de.nstaeger.pushnotifications.server.httplongpolling.notification.FakeNot
 /**
  * @author <a href="mailto:mail@nstaeger.de">Nicolai Stäger</a>
  */
-public class App
+public class Application
 {
     private static final int PORT = 8080;
 
