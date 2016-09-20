@@ -52,6 +52,7 @@ public class FakeNotificationService
     private static final Logger LOGGER = LoggerFactory.getLogger(FakeNotificationService.class);
     private static final Object BLOCKER = new Object();
     private static final int NUMBER_OF_CACHED_NOTIFICATIONS = 5;
+    private static int waitingClients = 0;
 
     private Thread notificationThread;
     private final Queue<Notification> notificationQueue;
@@ -72,6 +73,8 @@ public class FakeNotificationService
 
     public List<Notification> waitForNotificationsGreaterThan(final int lastNotificationId, final int timeout)
     {
+        incrementWaitingClients();
+
         try
         {
             final long waitingStart = System.currentTimeMillis();
@@ -98,6 +101,15 @@ public class FakeNotificationService
         {
             return Collections.emptyList();
         }
+        finally
+        {
+            decrementWaitingClients();
+        }
+    }
+
+    private synchronized void decrementWaitingClients()
+    {
+        --waitingClients;
     }
 
     private List<Notification> findNotificationsNewerThan(final int lastNotificationId)
@@ -107,12 +119,17 @@ public class FakeNotificationService
                                 .collect(Collectors.toList());
     }
 
+    private synchronized void incrementWaitingClients()
+    {
+        ++waitingClients;
+    }
+
     private void sendNotification()
     {
         final Notification notification = new Notification("A notification");
         notificationQueue.add(notification);
 
-        LOGGER.info("Notification {} send", notification);
+        LOGGER.info("Notification {} send to {} waiting client(s)", notification, waitingClients);
 
         synchronized (BLOCKER)
         {
