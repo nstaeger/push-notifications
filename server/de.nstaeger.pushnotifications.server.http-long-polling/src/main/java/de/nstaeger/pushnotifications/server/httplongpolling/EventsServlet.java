@@ -67,7 +67,7 @@ public class EventsServlet extends HttpServlet
     {
         final int lastId = getLastIdFromRequest(request);
 
-        LOGGER.info("Client requesting notifications after {}", lastId);
+        LOGGER.debug("Client requesting notifications after {}", lastId);
 
         final List<Notification> notifications = notificationService.waitForNotificationsGreaterThan(lastId,
                                                                                                      DEFAULT_TIMEOUT);
@@ -82,6 +82,6 @@ public class EventsServlet extends HttpServlet
             response.getWriter().write(notifications.toString());
         }
 
-        LOGGER.info("Client gets {} notification(s)", notifications.size());
+        LOGGER.debug("Client gets {} notification(s)", notifications.size());
     }
 }
