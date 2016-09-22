@@ -42,11 +42,11 @@ public class EventsServlet extends HttpServlet
         {
             try
             {
-                respondeWithNotifications(request, response);
+                respondWithNotifications(request, response);
             }
             catch (final Exception e)
             {
-                LOGGER.error("Trying to responde with Notifications throws excpetion.", e);
+                LOGGER.error("Trying to respond with Notifications throws excpetion.", e);
             }
             finally
             {
@@ -62,7 +62,7 @@ public class EventsServlet extends HttpServlet
         return lastIdAsString == null ? 0 : Integer.parseInt(lastIdAsString);
     }
 
-    private void respondeWithNotifications(final HttpServletRequest request, final HttpServletResponse response)
+    private void respondWithNotifications(final HttpServletRequest request, final HttpServletResponse response)
         throws IOException
     {
         final int lastId = getLastIdFromRequest(request);
