@@ -66,7 +66,7 @@ public class FakeNotificationService
     {
         if (notificationThread == null)
         {
-            notificationThread = new Thread(new Notifier(() -> sendNotification()));
+            notificationThread = new Thread(new Notifier(() -> sendNotification(new Notification("A notification"))));
             notificationThread.start();
         }
     }
@@ -124,9 +124,8 @@ public class FakeNotificationService
         ++waitingClients;
     }
 
-    private void sendNotification()
+    private void sendNotification(final Notification notification)
     {
-        final Notification notification = new Notification("A notification");
         notificationQueue.add(notification);
 
         LOGGER.info("Notification {} send to {} waiting client(s)", notification, waitingClients);
