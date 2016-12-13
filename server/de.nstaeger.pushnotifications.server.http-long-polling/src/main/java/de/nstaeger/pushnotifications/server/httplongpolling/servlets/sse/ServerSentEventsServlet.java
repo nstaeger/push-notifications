@@ -48,11 +48,10 @@ public class ServerSentEventsServlet extends HttpServlet
 
         sendHeaders(response);
         Continuation continuation = createContinuationAndSuspend(request, response);
-        notificationService.registerEmiter(new ServerSentEventEmitter(continuation));
+        notificationService.registerEmitter(new ServerSentEventEmitter(continuation));
     }
 
-    private Continuation createContinuationAndSuspend(HttpServletRequest request,
-                                                      HttpServletResponse response)
+    private Continuation createContinuationAndSuspend(HttpServletRequest request, HttpServletResponse response)
     {
         Continuation continuation = ContinuationSupport.getContinuation(request);
         continuation.setTimeout(0L);
@@ -76,7 +75,8 @@ public class ServerSentEventsServlet extends HttpServlet
         return false;
     }
 
-    private void sendHeaders(HttpServletResponse response) throws IOException
+    private void sendHeaders(HttpServletResponse response)
+        throws IOException
     {
         response.setStatus(HttpStatus.OK_200);
         response.setContentType(CONTENT_TYPE_EVENT_STREAM);
