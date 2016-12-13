@@ -8,14 +8,15 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.FakeNotificationService;
+import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationService;
+import de.nstaeger.pushnotifications.server.httplongpolling.servlets.longpolling.LongPollingContinuationServlet;
 
 /**
  * @author <a href="mail@nstaeger.de">Nicolai Stäger</a>
  */
-public class LongPollingServer extends Server
+public class NotificationServer extends Server
 {
-    public LongPollingServer(final int port, final FakeNotificationService notificationService)
+    public NotificationServer(final int port, final NotificationService notificationService)
     {
         super(new QueuedThreadPool(10000));
 
@@ -23,13 +24,13 @@ public class LongPollingServer extends Server
         connector.setPort(port);
         addConnector(connector);
 
-        final HttpServlet servlet = new EventsServlet(notificationService);
-
-        final ServletHolder servletHolder = new ServletHolder(servlet);
-        servletHolder.setAsyncSupported(true);
+        // Servlet for Long Polling
+        final HttpServlet longPollingServlet = new LongPollingContinuationServlet(notificationService);
+        final ServletHolder longPollingServletHolder = new ServletHolder(longPollingServlet);
+        longPollingServletHolder.setAsyncSupported(true);
 
         final ServletContextHandler contextHandler = new ServletContextHandler();
-        contextHandler.addServlet(servletHolder, "/events/*");
+        contextHandler.addServlet(longPollingServletHolder, "/longpolling/*");
 
         setHandler(contextHandler);
     }
