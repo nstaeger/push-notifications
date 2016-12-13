@@ -17,8 +17,8 @@
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
-        <stringProp name="ThreadGroup.num_threads">2500</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">120</stringProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(threads,100)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,30)}</stringProp>
         <longProp name="ThreadGroup.start_time">1470315950000</longProp>
         <longProp name="ThreadGroup.end_time">1470315950000</longProp>
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
@@ -26,27 +26,18 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-          <collectionProp name="Arguments.arguments">
-            <elementProp name="lastEventId" elementType="Argument">
-              <stringProp name="Argument.name">lastEventId</stringProp>
-              <stringProp name="Argument.value">0</stringProp>
-              <stringProp name="Argument.metadata">=</stringProp>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Accept</stringProp>
+              <stringProp name="Header.value">text/event-stream</stringProp>
             </elementProp>
           </collectionProp>
-        </Arguments>
+        </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Long Polling Request" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="ServerSent Events Request" enabled="true">
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
-            <collectionProp name="Arguments.arguments">
-              <elementProp name="last" elementType="HTTPArgument">
-                <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                <stringProp name="Argument.value">${lastEventId}</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-                <boolProp name="HTTPArgument.use_equals">true</boolProp>
-                <stringProp name="Argument.name">last</stringProp>
-              </elementProp>
-            </collectionProp>
+            <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="HTTPSampler.domain">172.31.11.21</stringProp>
           <stringProp name="HTTPSampler.port">8080</stringProp>
@@ -54,7 +45,7 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">longpolling</stringProp>
+          <stringProp name="HTTPSampler.path">serversentevents</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -64,21 +55,6 @@
           <boolProp name="HTTPSampler.monitor">false</boolProp>
           <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
         </HTTPSamplerProxy>
-        <hashTree>
-          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Path PostProcessor" enabled="true">
-            <stringProp name="TestPlan.comments">Extracts the ID of the last event retrieved</stringProp>
-            <stringProp name="JSONPostProcessor.referenceNames">lastEventId</stringProp>
-            <stringProp name="JSONPostProcessor.jsonPathExprs">$[-1:].id</stringProp>
-            <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
-            <stringProp name="Scope.variable">responseBody</stringProp>
-            <stringProp name="JSONPostProcessor.defaultValues">${lastEventId}</stringProp>
-          </JSONPostProcessor>
-          <hashTree/>
-        </hashTree>
-        <GaussianRandomTimer guiclass="GaussianRandomTimerGui" testclass="GaussianRandomTimer" testname="Gaussian Random Timer" enabled="true">
-          <stringProp name="ConstantTimer.delay">1000</stringProp>
-          <stringProp name="RandomTimer.range">500</stringProp>
-        </GaussianRandomTimer>
         <hashTree/>
       </hashTree>
     </hashTree>
