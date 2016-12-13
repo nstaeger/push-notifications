@@ -1,9 +1,9 @@
 package de.nstaeger.pushnotifications.server.httplongpolling.notification;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
@@ -15,46 +15,47 @@ public class NotificationService
     private static final Logger LOG = LoggerFactory.getLogger(NotificationService.class);
     private static final int NUMBER_OF_CACHED_NOTIFICATIONS = 5;
 
-    private final List<NotificationEmitter> emiterList;
+    private final CopyOnWriteArrayList<NotificationEmitter> emitterList;
     private final Queue<Notification> notificationQueue;
 
     public NotificationService()
     {
-        emiterList = new LinkedList<>();
+        emitterList = new CopyOnWriteArrayList<>();
         notificationQueue = new CircularFifoQueue<>(NUMBER_OF_CACHED_NOTIFICATIONS);
     }
 
-    public List<Notification> getOlderNotificationsGreaterThan(int lastNotificationId)
+    public List<Notification> getOlderNotificationsGreaterThan(final int lastNotificationId)
     {
         return notificationQueue.stream()
                                 .filter((notification) -> notification.getId() > lastNotificationId)
                                 .collect(Collectors.toList());
     }
 
-    public void registerEmitter(NotificationEmitter notificationEmiter)
+    public void registerEmitter(final NotificationEmitter notificationEmiter)
     {
-        emiterList.add(notificationEmiter);
+        emitterList.add(notificationEmiter);
     }
 
-    public void sendNotification(Notification notification)
+    public void sendNotification(final Notification notification)
     {
-        LOG.info("Sending to {} clients notification {}", emiterList.size(), notification.toString());
+        LOG.info("Sending to {} clients notification {}", emitterList.size(), notification.toString());
         notificationQueue.add(notification);
-        notifyEmiter(notification);
+        notifyEmitter(notification);
+        LOG.info("Notification send");
     }
 
-    private void notifyEmiter(Notification notification)
+    private void notifyEmitter(final Notification notification)
     {
-        Iterator<NotificationEmitter> i = emiterList.iterator();
+        final Iterator<NotificationEmitter> i = emitterList.listIterator();
 
         while (i.hasNext())
         {
-            NotificationEmitter emiter = i.next();
-            boolean shouldBeRemoved = emiter.emitNotification(notification);
+            final NotificationEmitter emitter = i.next();
+            final boolean shouldBeRemoved = emitter.emitNotification(notification);
 
             if (shouldBeRemoved)
             {
-                i.remove();
+                emitterList.remove(emitter);
             }
         }
     }

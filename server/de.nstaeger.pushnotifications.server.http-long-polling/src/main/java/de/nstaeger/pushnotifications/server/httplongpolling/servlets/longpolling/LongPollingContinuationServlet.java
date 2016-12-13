@@ -34,8 +34,8 @@ public class LongPollingContinuationServlet extends HttpServlet
         throws IOException
     {
         final int lastId = getLastIdFromRequest(request);
-        Continuation continuation = createContinuationAndSuspend(request, response);
-        List<Notification> missedNotifications = notificationService.getOlderNotificationsGreaterThan(lastId);
+        final Continuation continuation = createContinuationAndSuspend(request, response);
+        final List<Notification> missedNotifications = notificationService.getOlderNotificationsGreaterThan(lastId);
 
         if (!missedNotifications.isEmpty())
         {
@@ -47,23 +47,13 @@ public class LongPollingContinuationServlet extends HttpServlet
         }
     }
 
-    private void sendMissedNotifications(Continuation continuation, List<Notification> missedNotifications)
-        throws IOException
-    {
-        continuation.getServletResponse()
-                    .getOutputStream()
-                    .write(missedNotifications.toString().getBytes(UTF_8.name()));
-        
-        continuation.complete();
-    }
-
-    private Continuation createContinuationAndSuspend(HttpServletRequest request, HttpServletResponse response)
+    private Continuation createContinuationAndSuspend(final HttpServletRequest request, final HttpServletResponse response)
     {
         response.setStatus(HttpStatus.OK_200);
         response.setContentType("application/json");
         response.setCharacterEncoding(UTF_8.name());
 
-        Continuation continuation = ContinuationSupport.getContinuation(request);
+        final Continuation continuation = ContinuationSupport.getContinuation(request);
         continuation.setTimeout(0L);
         continuation.suspend(response);
 
@@ -75,5 +65,15 @@ public class LongPollingContinuationServlet extends HttpServlet
         final String lastIdAsString = request.getParameter("last");
 
         return lastIdAsString == null ? 0 : Integer.parseInt(lastIdAsString);
+    }
+
+    private void sendMissedNotifications(final Continuation continuation, final List<Notification> missedNotifications)
+        throws IOException
+    {
+        continuation.getServletResponse()
+                    .getOutputStream()
+                    .write(missedNotifications.toString().getBytes(UTF_8.name()));
+
+        continuation.complete();
     }
 }
