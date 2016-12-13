@@ -10,6 +10,7 @@ import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
 import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationService;
 import de.nstaeger.pushnotifications.server.httplongpolling.servlets.longpolling.LongPollingContinuationServlet;
+import de.nstaeger.pushnotifications.server.httplongpolling.servlets.sse.ServerSentEventsServlet;
 
 /**
  * @author <a href="mail@nstaeger.de">Nicolai Stäger</a>
@@ -29,8 +30,14 @@ public class NotificationServer extends Server
         final ServletHolder longPollingServletHolder = new ServletHolder(longPollingServlet);
         longPollingServletHolder.setAsyncSupported(true);
 
+        // Servlet for Server-Sent Events
+        final HttpServlet sseServlet = new ServerSentEventsServlet(notificationService);
+        final ServletHolder sseServletHolder = new ServletHolder(sseServlet);
+        sseServletHolder.setAsyncSupported(true);
+
         final ServletContextHandler contextHandler = new ServletContextHandler();
         contextHandler.addServlet(longPollingServletHolder, "/longpolling/*");
+        contextHandler.addServlet(sseServletHolder, "/serversentevents/*");
 
         setHandler(contextHandler);
     }
