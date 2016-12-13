@@ -1,7 +1,7 @@
-package de.nstaeger.pushnotifications.server.httplongpolling;
+package de.nstaeger.pushnotifications.server;
 
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.FakeNotificationGenerator;
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationService;
+import de.nstaeger.pushnotifications.server.notification.FakeNotificationGenerator;
+import de.nstaeger.pushnotifications.server.notification.NotificationService;
 
 /**
  * @author <a href="mailto:mail@nstaeger.de">Nicolai Stäger</a>

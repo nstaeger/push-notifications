@@ -1,4 +1,4 @@
-package de.nstaeger.pushnotifications.server.httplongpolling.util;
+package de.nstaeger.pushnotifications.server.util;
 
 public interface Executable
 {

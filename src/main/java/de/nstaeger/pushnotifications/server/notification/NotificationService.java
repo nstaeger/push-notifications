@@ -1,4 +1,4 @@
-package de.nstaeger.pushnotifications.server.httplongpolling.notification;
+package de.nstaeger.pushnotifications.server.notification;
 
 import java.util.Iterator;
 import java.util.List;

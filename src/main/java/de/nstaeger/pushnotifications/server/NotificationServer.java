@@ -1,4 +1,4 @@
-package de.nstaeger.pushnotifications.server.httplongpolling;
+package de.nstaeger.pushnotifications.server;
 
 import javax.servlet.http.HttpServlet;
 
@@ -8,9 +8,9 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationService;
-import de.nstaeger.pushnotifications.server.httplongpolling.servlets.longpolling.LongPollingContinuationServlet;
-import de.nstaeger.pushnotifications.server.httplongpolling.servlets.sse.ServerSentEventsServlet;
+import de.nstaeger.pushnotifications.server.notification.NotificationService;
+import de.nstaeger.pushnotifications.server.servlets.longpolling.LongPollingContinuationServlet;
+import de.nstaeger.pushnotifications.server.servlets.sse.ServerSentEventsServlet;
 
 /**
  * @author <a href="mail@nstaeger.de">Nicolai Stäger</a>

@@ -1,4 +1,4 @@
-package de.nstaeger.pushnotifications.server.httplongpolling.servlets.longpolling;
+package de.nstaeger.pushnotifications.server.servlets.longpolling;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -10,8 +10,8 @@ import org.eclipse.jetty.continuation.Continuation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.Notification;
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationEmitter;
+import de.nstaeger.pushnotifications.server.notification.Notification;
+import de.nstaeger.pushnotifications.server.notification.NotificationEmitter;
 
 public class LongPollingEmitter implements NotificationEmitter
 {

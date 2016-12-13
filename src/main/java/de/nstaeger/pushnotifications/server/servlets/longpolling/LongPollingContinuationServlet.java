@@ -1,4 +1,4 @@
-package de.nstaeger.pushnotifications.server.httplongpolling.servlets.longpolling;
+package de.nstaeger.pushnotifications.server.servlets.longpolling;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -13,8 +13,8 @@ import org.eclipse.jetty.continuation.Continuation;
 import org.eclipse.jetty.continuation.ContinuationSupport;
 import org.eclipse.jetty.http.HttpStatus;
 
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.Notification;
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationService;
+import de.nstaeger.pushnotifications.server.notification.Notification;
+import de.nstaeger.pushnotifications.server.notification.NotificationService;
 
 /**
  * @author <a href="mailto:mail@nstaeger.de">Nicolai Stäger</a>

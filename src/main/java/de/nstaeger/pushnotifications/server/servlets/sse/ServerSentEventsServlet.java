@@ -1,4 +1,4 @@
-package de.nstaeger.pushnotifications.server.httplongpolling.servlets.sse;
+package de.nstaeger.pushnotifications.server.servlets.sse;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -15,7 +15,7 @@ import org.eclipse.jetty.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.nstaeger.pushnotifications.server.httplongpolling.notification.NotificationService;
+import de.nstaeger.pushnotifications.server.notification.NotificationService;
 
 /**
  * @author <a href="mailto:mail@nstaeger.de">Nicolai Stäger</a>
