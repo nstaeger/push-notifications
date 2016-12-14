@@ -17,9 +17,11 @@ import de.nstaeger.pushnotifications.server.servlets.sse.ServerSentEventsServlet
  */
 public class NotificationServer extends Server
 {
+    private static final int THREAD_POOL_SIZE = 20000;
+    
     public NotificationServer(final int port, final NotificationService notificationService)
     {
-        super(new QueuedThreadPool(10000));
+        super(new QueuedThreadPool(THREAD_POOL_SIZE));
 
         final ServerConnector connector = new ServerConnector(this);
         connector.setPort(port);
