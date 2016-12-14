@@ -39,9 +39,11 @@ public class NotificationService
     public void sendNotification(final Notification notification)
     {
         LOG.info("Sending to {} clients notification {}", emitterList.size(), notification.toString());
+        
         notificationQueue.add(notification);
         notifyEmitter(notification);
-        LOG.info("Notification send");
+        
+        LOG.debug("Notification send");
     }
 
     private void notifyEmitter(final Notification notification)
