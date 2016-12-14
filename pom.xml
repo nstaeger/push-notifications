@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.nstaeger.pushnotifications</groupId>
-    <artifactId>server</artifactId>
+    <artifactId>push-notification-server</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
@@ -39,7 +39,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>de.nstaeger.pushnotifications.server.httplongpolling.Application</mainClass>
+                            <mainClass>de.nstaeger.pushnotifications.server.Application</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
