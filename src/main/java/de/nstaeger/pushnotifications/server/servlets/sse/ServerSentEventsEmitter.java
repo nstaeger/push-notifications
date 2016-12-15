@@ -15,11 +15,11 @@ import de.nstaeger.pushnotifications.server.notification.Notification;
 import de.nstaeger.pushnotifications.server.notification.NotificationEmitter;
 import de.nstaeger.pushnotifications.server.util.Executable;
 
-class ServerSentEventEmitter implements NotificationEmitter
+class ServerSentEventsEmitter implements NotificationEmitter
 {
     private static final byte[] CRLF = new byte[] { '\r', '\n' };
     private static final byte[] DATA_FIELD;
-    private static final Logger LOG = LoggerFactory.getLogger(ServerSentEventEmitter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServerSentEventsEmitter.class);
 
     static
     {
@@ -37,7 +37,7 @@ class ServerSentEventEmitter implements NotificationEmitter
     private final ServletOutputStream outputStream;
     private boolean closed;
 
-    public ServerSentEventEmitter(final Continuation continuation) throws IOException
+    public ServerSentEventsEmitter(final Continuation continuation) throws IOException
     {
         this.continuation = continuation;
         outputStream = continuation.getServletResponse().getOutputStream();

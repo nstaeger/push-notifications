@@ -20,11 +20,11 @@ import de.nstaeger.pushnotifications.server.notification.NotificationService;
  * @author <a href="mailto:mail@nstaeger.de">Nicolai Stäger</a>
  */
 @SuppressWarnings("serial")
-public class LongPollingContinuationServlet extends HttpServlet
+public class LongPollingServlet extends HttpServlet
 {
     private final NotificationService notificationService;
 
-    public LongPollingContinuationServlet(final NotificationService notificationService)
+    public LongPollingServlet(final NotificationService notificationService)
     {
         this.notificationService = notificationService;
     }

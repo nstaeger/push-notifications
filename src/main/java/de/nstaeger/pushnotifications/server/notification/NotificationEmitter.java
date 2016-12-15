@@ -3,7 +3,7 @@ package de.nstaeger.pushnotifications.server.notification;
 public interface NotificationEmitter
 {
     /**
-     * @return whether to deregister this emiter from the service or not.
+     * @return whether to unregister this emitter from the service after this notification or not.
      */
     boolean emitNotification(Notification notification);
 }

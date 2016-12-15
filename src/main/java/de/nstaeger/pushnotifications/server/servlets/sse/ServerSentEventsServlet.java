@@ -48,7 +48,7 @@ public class ServerSentEventsServlet extends HttpServlet
 
         sendHeaders(response);
         Continuation continuation = createContinuationAndSuspend(request, response);
-        notificationService.registerEmitter(new ServerSentEventEmitter(continuation));
+        notificationService.registerEmitter(new ServerSentEventsEmitter(continuation));
     }
 
     private Continuation createContinuationAndSuspend(HttpServletRequest request, HttpServletResponse response)
