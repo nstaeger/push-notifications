@@ -81,6 +81,7 @@ public class ServerSentEventsServlet extends HttpServlet
         response.setStatus(HttpStatus.OK_200);
         response.setContentType(CONTENT_TYPE_EVENT_STREAM);
         response.setCharacterEncoding(UTF_8.name());
+        response.addHeader("Transfer-Encoding", "chunked");
         response.addHeader("Connection", "close");
         response.flushBuffer();
     }
