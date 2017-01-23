@@ -24,7 +24,7 @@ public class NotificationService
         notificationQueue = new CircularFifoQueue<>(NUMBER_OF_CACHED_NOTIFICATIONS);
     }
 
-    public List<Notification> getOlderNotificationsGreaterThan(final int lastNotificationId)
+    public List<Notification> getNotificationsGreaterThan(final int lastNotificationId)
     {
         return notificationQueue.stream()
                                 .filter((notification) -> notification.getId() > lastNotificationId)

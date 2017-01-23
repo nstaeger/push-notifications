@@ -35,7 +35,7 @@ public class LongPollingServlet extends HttpServlet
     {
         final int lastId = getLastIdFromRequest(request);
         final Continuation continuation = createContinuationAndSuspend(request, response);
-        final List<Notification> missedNotifications = notificationService.getOlderNotificationsGreaterThan(lastId);
+        final List<Notification> missedNotifications = notificationService.getNotificationsGreaterThan(lastId);
 
         if (!missedNotifications.isEmpty())
         {
